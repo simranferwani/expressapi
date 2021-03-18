@@ -2,15 +2,9 @@
   "name": "expressapi",
   "version": "1.0.0",
   "description": "",
-<<<<<<< HEAD
-  "main": "server.js",
-  "scripts": {
-    "start": "server.js"
-=======
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
->>>>>>> 945215c2048e27062ca4b98b0a97b3936ba42331
+    "start": "server.js"
   },
   "author": "",
   "license": "ISC",
