@@ -1,113 +1,65 @@
-<<<<<<< HEAD
-const { check, validationResult } = require('express-validator'); 
+const { check, validationResult } = require("express-validator");
 
-const bodyparser = require('body-parser') 
-const express = require("express") 
-const path = require('path') 
-const app = express() 
+const bodyparser = require("body-parser");
+const express = require("express");
+const path = require("path");
+const app = express();
 
-var PORT = process.env.port || 8000 
+var PORT = process.env.port || 8000;
 
-// View Engine Setup 
-app.set("views", path.join(__dirname)) 
-app.set("view engine", "ejs") 
+// View Engine Setup
+app.set("views", path.join(__dirname));
+app.set("view engine", "ejs");
 
-// Body-parser middleware 
-app.use(bodyparser.urlencoded({ extended: false })) 
-app.use(bodyparser.json()) 
+// Body-parser middleware
+app.use(bodyparser.urlencoded({ extended: false }));
+app.use(bodyparser.json());
 
-app.get("/", function (req, res) { 
-res.render("SampleForm"); 
-}) 
+app.get("/", function (req, res) {
+  res.render("SampleForm");
+});
 
-// check() is a middleware used to validate 
-// the incomming data as per the fields 
-app.post('/saveData', [ 
-check('email', 'Email length should be 10 to 30 characters') 
-                .isEmail().isLength({ min: 10, max: 30 }), 
-check('name', 'Name length should be 10 to 20 characters') 
-                .isLength({ min: 10, max: 20 }), 
-check('mobile', 'Mobile number should contains 10 digits') 
-                .isLength({ min: 10, max: 10 }), 
-check('password', 'Password length should be 8 to 10 characters') 
-                .isLength({ min: 8, max: 10 }) 
-], (req, res) => { 
+// check() is a middleware used to validate
+// the incomming data as per the fields
+app.post(
+  "/saveData",
+  [
+    check("email", "Email length should be 10 to 30 characters")
+      .isEmail()
+      .isLength({ min: 10, max: 30 }),
+    check("name", "Name length should be 10 to 20 characters").isLength({
+      min: 10,
+      max: 20,
+    }),
+    check("mobile", "Mobile number should contains 10 digits").isLength({
+      min: 10,
+      max: 10,
+    }),
+    check("password", "Password length should be 8 to 10 characters").isLength({
+      min: 8,
+      max: 10,
+    }),
+  ],
+  (req, res) => {
+    // validationResult function checks whether
+    // any occurs or not and return an object
+    const errors = validationResult(req);
 
-// validationResult function checks whether 
-// any occurs or not and return an object 
-const errors = validationResult(req); 
+    // If some error occurs, then this
+    // block of code will run
+    if (!errors.isEmpty()) {
+      res.json(errors);
+    }
 
-// If some error occurs, then this 
-// block of code will run 
-if (!errors.isEmpty()) { 
-    res.json(errors) 
-} 
+    // If no error occurs, then this
+    // block of code will run
+    else {
+      res.send("Successfully validated");
+    }
+  }
+);
 
-// If no error occurs, then this 
-// block of code will run 
-else { 
-    res.send("Successfully validated") 
-} 
-}); 
-
-app.listen(PORT, function (error) { 
-if (error) throw error 
-console.log("Server created Successfully on PORT ", PORT) 
-}) 
-=======
-const { check, validationResult } = require('express-validator'); 
-
-const bodyparser = require('body-parser') 
-const express = require("express") 
-const path = require('path') 
-const app = express() 
-
-var PORT = process.env.port || 8000 
-
-// View Engine Setup 
-app.set("views", path.join(__dirname)) 
-app.set("view engine", "ejs") 
-
-// Body-parser middleware 
-app.use(bodyparser.urlencoded({ extended: false })) 
-app.use(bodyparser.json()) 
-
-app.get("/", function (req, res) { 
-res.render("SampleForm"); 
-}) 
-
-// check() is a middleware used to validate 
-// the incomming data as per the fields 
-app.post('/saveData', [ 
-check('email', 'Email length should be 10 to 30 characters') 
-                .isEmail().isLength({ min: 10, max: 30 }), 
-check('name', 'Name length should be 10 to 20 characters') 
-                .isLength({ min: 10, max: 20 }), 
-check('mobile', 'Mobile number should contains 10 digits') 
-                .isLength({ min: 10, max: 10 }), 
-check('password', 'Password length should be 8 to 10 characters') 
-                .isLength({ min: 8, max: 10 }) 
-], (req, res) => { 
-
-// validationResult function checks whether 
-// any occurs or not and return an object 
-const errors = validationResult(req); 
-
-// If some error occurs, then this 
-// block of code will run 
-if (!errors.isEmpty()) { 
-    res.json(errors) 
-} 
-
-// If no error occurs, then this 
-// block of code will run 
-else { 
-    res.send("Successfully validated") 
-} 
-}); 
-
-app.listen(PORT, function (error) { 
-if (error) throw error 
-console.log("Server created Successfully on PORT ", PORT) 
-}) 
->>>>>>> 945215c2048e27062ca4b98b0a97b3936ba42331
+app.listen(PORT, function (error) {
+  if (error) throw error;
+  console.log("Server created Successfully on PORT ", PORT);
+});
